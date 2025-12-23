@@ -8,6 +8,17 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                checkout scm: [$class: 'GitSCM',
+                    branches: [[name: '*/master']], 
+                    userRemoteConfigs: [[
+                        url: 'git@github.com:Wan172005/DevOps-Project.git'
+                    ]]
+                ]
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh '''
