@@ -8,14 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'master',
-                    url: 'git@github.com:Wan172005/DevOps-Project.git',
-                    credentialsId: 'git-ssh'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh '''
@@ -26,7 +18,15 @@ pipeline {
 
         stage('Login DockerHub') {
             steps {
-                credentialsId = 'dockerhub-creds'
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh '''
+                      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    '''
+                }
             }
         }
 
