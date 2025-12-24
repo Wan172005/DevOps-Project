@@ -8,6 +8,6 @@ class HelloHandler(BaseHTTPRequestHandler):
         self.wfile.write(b"<h1>Hello World</h1>")
 
 if __name__ == "__main__":
-    server = HTTPServer(("localhost", 8000), HelloHandler)
-    print("Server dang chay tai http://localhost:8000")
+    server = HTTPServer(("0.0.0.0", 8000), HelloHandler)
+    print("Server dang chay tai http://0.0.0.0:8000")
     server.serve_forever()
