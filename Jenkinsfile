@@ -37,14 +37,22 @@ pipeline {
                 '''
             }
         }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                  docker run -d -p 5000:5000 --name python-app $IMAGE_NAME:$IMAGE_TAG
+                '''
+            }
+        }
     }
 
     post {
         success {
-            echo '✅ Build & Push DockerHub thành công'
+            echo 'Build & Push DockerHub successful'
         }
         failure {
-            echo '❌ Pipeline thất bại'
+            echo 'Pipeline failed'
         }
     }
 }
