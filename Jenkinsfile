@@ -41,6 +41,8 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh '''
+                  docker stop python-app || true
+                  docker rm python-app || true
                   docker run -d -p 5000:8000 --name python-app $IMAGE_NAME:$IMAGE_TAG
                 '''
             }
