@@ -2,8 +2,11 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "quangnguyenvuminh/python-app"
+        IMAGE_NAME = "quangnguyenvuminh/weather-app"
         IMAGE_TAG  = "latest"
+        CONTAINER_NAME = "weather-app"
+        CONTAINER_INBOUND_PORT = "5000"
+        CONTAINER_OUTBOUND_PORT = "80"
     }
 
     stages {
@@ -42,9 +45,9 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh '''
-                  docker stop python-app || true
-                  docker rm python-app || true
-                  docker run -d -p 5000:8000 --name python-app $IMAGE_NAME:$IMAGE_TAG
+                  docker stop $CONTAINER_NAME || true
+                  docker rm $CONTAINER_NAME || true
+                  docker run -d -p $CONTAINER_INBOUND_PORT:$CONTAINER_OUTBOUND_PORT --name $CONTAINER_NAME $IMAGE_NAME:$IMAGE_TAG
                 '''
             }
         }
@@ -52,7 +55,7 @@ pipeline {
 
     post {
         success {
-            echo 'Build & Push DockerHub successful'
+            echo 'Build & Push DockerHub & Run Container successful'
         }
         failure {
             echo 'Pipeline failed'
