@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "quangnguyenvuminh/weather-app"
+        IMAGE_NAME = "quangnguyenvuminh/weather-app-test"
         IMAGE_TAG  = "latest"
         CONTAINER_NAME = "weather-app"
         CONTAINER_INBOUND_PORT = "5000"
@@ -62,3 +62,4 @@ pipeline {
         }
     }
 }
+
