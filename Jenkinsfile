@@ -5,7 +5,7 @@ pipeline {
         IMAGE_NAME = "quangnguyenvuminh/weather-app-test"
         IMAGE_TAG  = "latest"
         CONTAINER_NAME = "weather-app-test"
-        CONTAINER_INBOUND_PORT = "5000"
+        CONTAINER_INBOUND_PORT = "5001"
         CONTAINER_OUTBOUND_PORT = "80"
     }
 
@@ -62,5 +62,6 @@ pipeline {
         }
     }
 }
+
 
 
